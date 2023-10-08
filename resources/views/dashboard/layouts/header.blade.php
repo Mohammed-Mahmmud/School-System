@@ -187,12 +187,15 @@
                         <div class="dropdown ms-1 topbar-head-dropdown header-item">
                             <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @if(App::getLocale()== "ar")
-                                <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/ae.svg" alt="Ar Header Language"
+                                @if(App::getLocale()== "ar") 
+                                 <img id="header-lang-imgs" src="{{asset('dashboard')}}/assets/images/flags/ae.svg" alt="{{ App::getLocale() }} Header Page"
+                                height="20" class="rounded"> 
+                                 @elseif (App::getLocale()== "en")
+                                <img id="header-lang-imgs" src="{{asset('dashboard')}}/assets/images/flags/us.svg" alt="{{ App::getLocale() }} Header Page"
                                 height="20" class="rounded">
                                 @else
-                                <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/us.svg" alt="En Header Language"
-                                    height="20" class="rounded">
+                                <img id="header-lang-imgs" src="{{asset('dashboard')}}/assets/images/flags/us.svg" alt="{{ App::getLocale() }} Header Page"
+                                height="20" class="rounded">
                                 @endif
                             </button>
                            
@@ -203,11 +206,11 @@
                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                     @if($properties['native'] == "English")
                                         <i class="flag-icon flag-icon-us"></i>
-                                        <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/us.svg" alt="Header Language"
+                                        <img id="header-lang-imgs" src="{{asset('dashboard')}}/assets/images/flags/us.svg" alt="{{ App::getLocale() }} Sub Header Page"
                                 height="20" class="rounded">
                                     @elseif($properties['native'] == "العربية")
                                         <i class="flag-icon flag-icon-eg"></i>
-                                        <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/ae.svg" alt="Header Language"
+                                        <img id="header-lang-imgs" src="{{asset('dashboard')}}/assets/images/flags/ae.svg" alt="{{ App::getLocale() }} Sub Header Page"
                                               height="20" class="rounded">
                                     @endif
                                     {{ $properties['native'] }}
