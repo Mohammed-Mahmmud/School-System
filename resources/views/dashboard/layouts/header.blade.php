@@ -188,10 +188,10 @@
                             <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if(App::getLocale()== "ar")
-                                <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/ae.png" alt="Ar Header Language"
+                                <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/ae.svg" alt="Ar Header Language"
                                 height="20" class="rounded">
                                 @else
-                                <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/us.png" alt="En Header Language"
+                                <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/us.svg" alt="En Header Language"
                                     height="20" class="rounded">
                                 @endif
                             </button>
@@ -203,11 +203,11 @@
                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                     @if($properties['native'] == "English")
                                         <i class="flag-icon flag-icon-us"></i>
-                                        <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/us.png" alt="Header Language"
+                                        <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/us.svg" alt="Header Language"
                                 height="20" class="rounded">
                                     @elseif($properties['native'] == "العربية")
                                         <i class="flag-icon flag-icon-eg"></i>
-                                        <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/ae.png" alt="Header Language"
+                                        <img id="header-lang-img" src="{{asset('dashboard')}}/assets/images/flags/ae.svg" alt="Header Language"
                                               height="20" class="rounded">
                                     @endif
                                     {{ $properties['native'] }}
