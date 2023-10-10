@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\GradeController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -21,7 +22,14 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){
-        //Routes
-        Route::get('/admin',[HomeController::class,'index'])->name('mainDashboard');
+        //Dashboard Routes
+        Route::prefix('admin')->middleware('auth')->group(function(){
+            Route::get('/',[HomeController::class,'index'])->name('mainDashboard');
+            Route::resource('grades', GradeController::class)->names('adminGrades');
+        });
+
+
+
+        require __DIR__.'/auth.php';
 
 });

@@ -14,7 +14,6 @@ return [
     */
 
     'Menu' => 'Menu',
-    'Sections'=>'Sections',
-    'view-sections'=>' View Sections',
-
+   
+    
 ];

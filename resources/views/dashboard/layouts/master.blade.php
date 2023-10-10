@@ -20,6 +20,7 @@
         @include('dashboard.layouts.header')
             @yield('content')
         </div> 
+        @include('dashboard.layouts.footer')
         @include('dashboard.layouts.theme-settings')
         @include('dashboard.layouts.scripts')
     

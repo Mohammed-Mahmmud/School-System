@@ -717,7 +717,7 @@
     <div class="offcanvas-footer border-top p-3 text-center">
         <div class="row">
             <div class="col-12">
-                <button type="button" class="btn btn-light w-100" id="reset-layout">Reset</button>
+                <button type="button" class="btn btn-danger w-100" id="reset-layout">Reset</button>
             </div>
            
         </div>
