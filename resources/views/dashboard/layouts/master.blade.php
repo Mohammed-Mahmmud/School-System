@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-layout="vertical" data-layout-width="fluid" data-layout-position="scrollable" data-sidebar="dark"  data-preloader="disable" data-theme="default" data-topbar="dark" data-bs-theme="light">
+<html lang="en" data-layout="vertical" data-layout-width="fluid" data-layout-position="scrollable" data-sidebar="dark"  data-preloader="enable" data-theme="default" data-topbar="dark" data-bs-theme="dark">
 
 
 <head>
@@ -16,8 +16,8 @@
             <div>
                 @endif
             @include('dashboard.layouts.sidebar')
+            @include('dashboard.layouts.header')
         </div>
-        @include('dashboard.layouts.header')
             @yield('content')
         </div> 
         @include('dashboard.layouts.footer')
