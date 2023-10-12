@@ -18,7 +18,6 @@
         </div>
             @yield('content')
         </div> 
-        {{-- @include('dashboard.layouts.theme-settings') --}}
         @include('dashboard.layouts.scripts')
     
 </body> 
