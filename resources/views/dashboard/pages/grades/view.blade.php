@@ -1,7 +1,11 @@
 @extends('dashboard.layouts.master')
 @section('title','School Grades')
 @section('css')
-
+@if (Session::has('message'))
+<script>
+    toastr.success("{{ Session::get('message') }}");
+    </script>    
+@endif
    <!-- Sweet Alert css-->
    <link href="{{asset('dashboard')}}/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 
@@ -65,38 +69,49 @@
                                             <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                         </div>
                                     </th>
-                                    <th class="sort" data-sort="customer_name">Customer</th>
-                                    <th class="sort" data-sort="email">Email</th>
-                                    <th class="sort" data-sort="phone">Phone</th>
+                                    <th class="sort" data-sort="customer_name">Grade</th>
+                                    <th class="sort" data-sort="email">Note</th>
                                     <th class="sort" data-sort="date">Joining Date</th>
-                                    <th class="sort" data-sort="status">Delivery Status</th>
                                     <th class="sort" data-sort="action">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
+                                @foreach($grades as $grade)
                                 <tr>
                                     <th scope="row">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                         </div>
                                     </th>
+                                        
                                     <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
-                                    <td class="customer_name">Mary Cousar</td>
-                                    <td class="email">marycousar@Hybrix.com</td>
-                                    <td class="phone">580-464-4694</td>
-                                    <td class="date">06 Apr, 2021</td>
-                                    <td class="status"><span class="badge bg-success-subtle text-success text-uppercase">Active</span></td>
+                                   @php
+                                       $lan_grade = App::getLocale()."_grade";
+                                   @endphp
+                                    <td class="customer_name">{{$grade->$lan_grade}}</td>
+                                    {{-- <td class="customer_name">{{ $grade->en_grade }}</td> --}}
+                                    <td class="email">{{  $grade->note }}</td>
+                                    <td class="date">{{ $grade->created_at }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <div class="edit">
                                                 <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button>
                                             </div>
                                             <div class="remove">
-                                                <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                <form action="{{ route('grades.destroy', $grade) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                     <button class="btn btn-sm btn-danger remove-item-btn" type="submit">
+                                                        Remove
+                                                    </button>
+                                                </form>
+                                                <i class="m-nav__link-icon fa fa-trash-o"></i>
                                             </div>
                                         </div>
                                     </td>
+                                    
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="noresult" style="display: none">
@@ -128,7 +143,8 @@
 </div>
 <!-- end row -->
 
-
+<form action="{{ route('grades.store') }}" method="POST">
+    @csrf
 
 <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -142,42 +158,34 @@
 
                     <div class="mb-3" id="modal-id" style="display: none;">
                         <label for="id-field" class="form-label">ID</label>
-                        <input type="text" id="id-field" class="form-control" placeholder="ID" readonly="">
+                        <input type="text" id="id-field" name="id" class="form-control" placeholder="ID" readonly="">
                     </div>
 
                     <div class="mb-3">
-                        <label for="customername-field" class="form-label">Grade Name</label>
-                        <input type="text" id="customername-field" class="form-control" placeholder="Enter Name" required="">
+                        <div class="row">
+                        <div class="col-6">
+                        <label for="customername-field" class="form-label">EN Grade Name</label>
+                        <input type="text" id="customername-field" name ="en_grade" class="form-control" placeholder="EN Enter Name"  required="">
                     </div>
-
+                    <div class="col-6">
+                        <label for="customername-field" class="form-label">AR Grade Name</label>
+                        <input type="text" id="customername-field" name = "ar_grade" class="form-control" placeholder="AR Enter Name" required="">
+                    </div>
+                    </div>
+                </div>
                     <div class="mb-3">
-                        <label for="email-field" class="form-label">Email</label>
-                        <input type="email" id="email-field" class="form-control" placeholder="Enter Email" required="">
+                        <label for="note-field" class="form-label">Notes</label>
+                        <textarea type="text" id="note-field" name="note" class="form-control" placeholder="Enter notes" required="">
+                        </textarea>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="phone-field" class="form-label">Phone</label>
-                        <input type="number" id="phone-field" class="form-control" placeholder="Enter Phone no." required="">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="date-field" class="form-label">Joining Date</label>
-                        <input type="date" id="date-field" class="form-control" placeholder="Select Date" required="">
-                    </div>
-
-                    <div>
-                        <label for="status-field" class="form-label">Status</label>
-                        <select class="form-control" data-trigger="" name="status-field" id="status-field">
-                            <option value="">Status</option>
-                            <option value="Active">Active</option>
-                            <option value="Block">Block</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" id="add-btn">Add Customer</button>
+                        
+                            <button type="submit" class="btn btn-success" id="add-btn">Add grade</button>
+                        </form>
                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                     </div>
                 </div>
@@ -236,7 +244,11 @@
 @endsection
 
 @section('script')
-
+@if (Session::has('message'))
+<script>
+    toastr.success("{{ Session::get('message') }}");
+    </script>    
+@endif
 <!-- prismjs plugin -->
 <script src="{{asset('dashboard')}}/assets/libs/prismjs/prism.js"></script>
 <script src="{{asset('dashboard')}}/assets/libs/list.js/list.min.js"></script>

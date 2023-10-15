@@ -38,10 +38,10 @@
                     <div class="collapse menu-dropdown" id="sidebarDashboards">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('adminGrades.index') }}" class="nav-link" data-key="t-analytics"> {{ trans('Dashboard/sidebar.grades-view') }} </a>
+                                <a href="{{ route('grades.index') }}" class="nav-link" data-key="t-analytics"> {{ trans('Dashboard/sidebar.grades-view') }} </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('adminGrades.create') }}" class="nav-link" data-key="t-crm">  {{ trans('Dashboard/sidebar.grades-add') }} </a>
+                                <a href="{{ route('grades.create') }}" class="nav-link" data-key="t-crm">  {{ trans('Dashboard/sidebar.grades-add') }} </a>
                             </li>
                           
                         </ul>

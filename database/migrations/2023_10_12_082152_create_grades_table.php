@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
+            $table->string('en_grade');
+            $table->string('ar_grade');
+            $table->text('note');
+            $table->string('lang');
             $table->timestamps();
         });
     }

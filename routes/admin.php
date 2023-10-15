@@ -25,7 +25,7 @@ Route::group(
         //Dashboard Routes
         Route::prefix('admin')->middleware('auth')->group(function(){
             Route::get('/',[HomeController::class,'index'])->name('mainDashboard');
-            Route::resource('grades', GradeController::class)->names('adminGrades');
+            Route::resource('grades', GradeController::class)->names('grades');
         });
 
 

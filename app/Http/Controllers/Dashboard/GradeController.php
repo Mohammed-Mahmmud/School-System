@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Dashboard\Grade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class GradeController extends Controller
 {
@@ -13,7 +14,8 @@ class GradeController extends Controller
      */
     public function index()
     {
-     return view('dashboard.pages.grades.view');
+        $grades=Grade::paginate(15);
+     return view('dashboard.pages.grades.view',compact('grades'));
     }
 
     /**
@@ -21,7 +23,7 @@ class GradeController extends Controller
      */
     public function create()
     {
-            return view('dashboard.pages.grades.add');
+            return view('dashboard.pages.grades.view');
     }
 
     /**
@@ -29,7 +31,14 @@ class GradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Grade::create($request->all());
+        Grade::create([
+            'en_grade' => $request->en_grade,
+            'ar_grade' => $request->ar_grade,
+            'note' => $request->note,
+            'lang' => App::getLocale()
+        ]);
+        return back()->with('message','the grade has been saved');
     }
 
     /**
@@ -45,7 +54,8 @@ class GradeController extends Controller
      */
     public function edit(Grade $grade)
     {
-        //
+        $grades =Grade::get();
+        return view('dashboard.pages.grades.view',compact('grades'));
     }
 
     /**
@@ -61,6 +71,7 @@ class GradeController extends Controller
      */
     public function destroy(Grade $grade)
     {
-        //
+     $grade->delete();
+            return back()->with('message','the filed is deleted');
     }
 }

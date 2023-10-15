@@ -17,10 +17,10 @@
                 @endif
             @include('dashboard.layouts.sidebar')
             @include('dashboard.layouts.header')
-        </div>
             @yield('content')
+            @include('dashboard.layouts.footer')
+        </div>
         </div> 
-        @include('dashboard.layouts.footer')
         @include('dashboard.layouts.theme-settings')
         @include('dashboard.layouts.scripts')
     
