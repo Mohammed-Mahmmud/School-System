@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dashboard\Grade;
+use App\ViewModels\Dashboard\GradeViewModel\GradeViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -23,7 +24,7 @@ class GradeController extends Controller
      */
     public function create()
     {
-            return view('dashboard.pages.grades.view');
+            return view('dashboard.pages.grades.view',new GradeViewModel());
     }
 
     /**
@@ -54,8 +55,8 @@ class GradeController extends Controller
      */
     public function edit(Grade $grade)
     {
-        $grades =Grade::get();
-        return view('dashboard.pages.grades.view',compact('grades'));
+        $grade =Grade::get();
+        return view('dashboard.pages.grades.view',new GradeViewModel($grade));
     }
 
     /**

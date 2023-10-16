@@ -143,7 +143,7 @@
 </div>
 <!-- end row -->
 
-<form action="{{ route('grades.store') }}" method="POST">
+<form action="{{ $action }}" method="POST">
     @csrf
 
 <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -153,7 +153,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Add New Grade</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
-            <form class="tablelist-form">
+            <form class="tablelist-form" action="{{ $action }}" method="POST"> 
                 <div class="modal-body">
 
                     <div class="mb-3" id="modal-id" style="display: none;">
@@ -164,7 +164,7 @@
                     <div class="mb-3">
                         <div class="row">
                         <div class="col-6">
-                        <label for="customername-field" class="form-label">EN Grade Name</label>
+                        <label for="customername-field" class="form-label" value="{{ $grades->en_grade }}">EN Grade Name</label>
                         <input type="text" id="customername-field" name ="en_grade" class="form-control" placeholder="EN Enter Name"  required="">
                     </div>
                     <div class="col-6">
