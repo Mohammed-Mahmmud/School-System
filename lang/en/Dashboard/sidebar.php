@@ -17,6 +17,6 @@ return [
     'Sections'=>'Sections',
     'view-sections'=>' View Sections',
     'grades'=>'School Grades',
-    'grades-view'=>'View Grades',
+    'grades-view'=>'School Grade Menu',
     'grades-add'=>'Add Grade',
 ];

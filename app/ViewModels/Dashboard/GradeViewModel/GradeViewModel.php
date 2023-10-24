@@ -11,15 +11,14 @@ class GradeViewModel extends ViewModel
     public $grades;
     public function __construct($grades = null)
     {
-        //
-        $this->grades = is_null($grades) ? new Grade(old()) : $grades;
+        $this->grades= is_null($grades) ? new Grade(old()) : $grades;
         $this->type = is_null($grades)?'Create':'Edit' ;
     }
     public function action(): string
     {
         return is_null($this->grades->id)
             ? route('grades.store')
-            : route('grades.update', $this->grades->id);
+            : route('grades.update', $this->grades);
 
     }
 

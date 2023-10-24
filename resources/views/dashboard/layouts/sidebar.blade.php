@@ -33,16 +33,16 @@
                 <li class="menu-title"><span data-key="t-menu">{{ trans('Dashboard/sidebar.Menu') }}</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link collapsed" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                        <i class="ph-gauge"></i> <span data-key="t-dashboards">{{ trans('Dashboard/sidebar.grades') }}</span>
+                        <i class="ph-graduation-cap"></i> <span data-key="t-dashboards">{{ trans('Dashboard/sidebar.grades') }}</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarDashboards">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('grades.index') }}" class="nav-link" data-key="t-analytics"> {{ trans('Dashboard/sidebar.grades-view') }} </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ route('grades.create') }}" class="nav-link" data-key="t-crm">  {{ trans('Dashboard/sidebar.grades-add') }} </a>
-                            </li>
+                            </li> --}}
                           
                         </ul>
                     </div>

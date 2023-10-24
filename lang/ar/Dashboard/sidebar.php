@@ -17,6 +17,6 @@ return [
     'Sections'=>'الاقسام',
     'view-sections'=>'عرض الاقسام',
     'grades'=>'المراحل الدراسية ',
-    'grades-view'=>'عرض المراحل',
+    'grades-view'=>'قائمة المراحل الدراسية',
     'grades-add'=>'أضافة مرحله ',
 ];
