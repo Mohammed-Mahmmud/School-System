@@ -8,22 +8,22 @@ use App\Models\Dashboard\Grade;
 class GradeViewModel extends ViewModel
 {
     public  $type;
-    public $grades;
-    public function __construct($grades = null)
+    public $grade;
+    public function __construct($grade = null )
     {
-        $this->grades= is_null($grades) ? new Grade(old()) : $grades;
-        $this->type = is_null($grades)?'Create':'Edit' ;
+        $this->grade= is_null($grade) ? new Grade(old()) : $grade;
+        $this->type = is_null($grade)?'Create':'Edit' ;
     }
     public function action(): string
     {
-        return is_null($this->grades->id)
+        return is_null($this->grade->id)
             ? route('grades.store')
-            : route('grades.update', $this->grades);
+            : route('grades.update', $this->grade);
 
     }
 
     public function method(): string
     {
-        return is_null($this->grades->id) ? 'POST' : 'PUT';
+        return is_null($this->grade->id) ? 'POST' : 'PUT';
     }
 }

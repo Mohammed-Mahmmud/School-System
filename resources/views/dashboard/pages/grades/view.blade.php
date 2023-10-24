@@ -152,7 +152,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Grade</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ $data->type ?? "add" }} Grade</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
             <form class="tablelist-form" action="" method=""> 
@@ -187,7 +187,7 @@
                 </div>
             </form>
 
-            {{-- update form --}}
+            {{-- update form
 <form class="tablelist-form"   action="{{ route('grades.store') }}" method="POST"> 
     @csrf
     
@@ -195,7 +195,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel2">Edit Grade</h5>
+                <h5 class="modal-title" id="exampleModalLabel2">{{ $data->type ?? "add" }} Grade</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
             <form class="tablelist-form" action="" method=""> 
@@ -228,7 +228,7 @@
                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                     </div>
                 </div>
-            </form>
+            </form> --}}
         </div>
     </div>
 </div>

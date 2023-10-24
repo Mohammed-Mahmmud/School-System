@@ -14,7 +14,7 @@ return [
     */
 
     'Welcome Back' => 'Welcome Back.',
-    "Login to continue to Hospital System" => "Login to continue to Hospital System.",
+    "lss" => " Sign in to continue to School System. ",
     "login as" => "login as",
     "Patient" => "Patient",
     "Admin" => "Admin",
@@ -22,6 +22,12 @@ return [
     "User Email" => "User Email",
     "User Password" => "User Password",
     "Forgot password?" => "Forgot password?",
-    "" => "",
-
+    "Email" => "Email",
+    "Password" => "Password",
+    "Remember me" => "Remember me",
+    "login" => "Log in",
+    "Sign In with" => "Sign In with",
+    "Don't have an account ?" => "Don't have an account ?",
+    "SignUp" => " SignUp",
+    "Forgot your password?"=> "Forgot your password?",
 ];

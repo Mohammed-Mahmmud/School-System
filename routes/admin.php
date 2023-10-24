@@ -22,6 +22,10 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){
+        
+        
+            require __DIR__.'/auth.php';
+
         //Dashboard Routes
         Route::prefix('admin')->middleware('auth')->group(function(){
             Route::get('/',[HomeController::class,'index'])->name('mainDashboard');
@@ -30,6 +34,5 @@ Route::group(
 
 
 
-        require __DIR__.'/auth.php';
 
 });

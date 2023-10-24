@@ -16,16 +16,19 @@
                                     <div class="card mb-0 border-0 shadow-none mb-0">
                                         <div class="card-body p-sm-5 m-lg-4">
                                             <div class="text-center mt-5">
-                                                <h5 class="fs-3xl">Welcome Back</h5>
-                                                <p class="text-muted">Sign in to continue to School System.</p>
+                                                <h5 class="fs-3xl">{{ trans('Dashboard/login_trans.Welcome Back') }}</h5>
+                                                <p class="text-muted">{{ trans('Dashboard/login_trans.lss') }}</p>
                                             </div>
                                             <div class="p-2 mt-5">
                                                 
                                                 <form method="POST" action="{{ route('login') }}">
                                                     @csrf
-                            
-                                                    <div class="mb-3">
-                                                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                                    @if(App::getLocale()== "ar")
+                                                    <div class="mb-3" dir="rtl">
+                                                        @else
+                                                    <div class="mb-3" >
+                                                        @endif
+                                                        <label for="email" class="form-label">{{ trans('Dashboard/login_trans.Email') }} <span class="text-danger">*</span></label>
                                                         <div class="position-relative ">
                                                             <input type="email" name="email" class="form-control  password-input" id="email" :value="old('email')" placeholder="Enter email" required autofocus autocomplete="email">
                                                            
@@ -33,38 +36,47 @@
                                                         </div>
                                                     </div>
                             
-                                                    <div class="mb-3">
+                                                    @if(App::getLocale()== "ar")
+                                                    <div class="mb-3" dir="rtl">
+                                                        @else
+                                                    <div class="mb-3" >
+                                                        @endif
                                                         <div class="float-end">
-                                                            <a href="{{ route('password.request') }}" class="text-muted">Forgot password?</a>
+                                                            <a href="{{ route('password.request') }}" class="text-muted">{{ trans('Dashboard/login_trans.Forgot password?') }}</a>
                                                         </div>
-                                                        <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
+                                                        <label class="form-label" for="password-input">{{ trans('Dashboard/login_trans.Password') }} <span class="text-danger">*</span></label>
                                                         <div class="position-relative auth-pass-inputgroup mb-3 " >
                                                             <input type="password" name="password" class="form-control pe-5 password-input " placeholder="Enter password" id="password-input" required autocomplete="current-password">
                                                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                                             <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                                         </div>
                                                     </div>
-                            
-                                                    <div class="form-check">
+                                    
+                                                    
+                                                    <div class="form-check" >
                                                         <input class="form-check-input" type="checkbox" value="" id="remember_me" name="remember">
-                                                        <label class="form-check-label" for="auth-remember-check">Remember me</label>
+                                                        <label class="form-check-label" for="auth-remember-check">{{ trans('Dashboard/login_trans.Remember me') }} </label>
                                                     </div>
-                            
-                                                    <div class="mt-4" >
+                                                    <br>
+                                                    {{-- @if(App::getLocale()== "ar")
+                                                    <div class="mb-4" dir="ltr">
+                                                        @else
+                                                    <div class="mb-4" >
+                                                        @endif
                                                         @if (Route::has('password.request'))
                                                         <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                                                            {{ __('Forgot your password?') }}
+                                                            {{ __(trans('Dashboard/login_trans.Forgot your password?')) }}
                                                         </a>
-                                                    @endif
+                                                    @endif --}}
                                         
                                                  
                                                     
-                                                        <button class="btn btn-primary w-100"  type="submit">Log In</button>
+                                                        <button class="btn btn-primary w-100"  type="submit">{{ trans('Dashboard/login_trans.login') }}</button>
                                                     </div>
                             
                                                     <div class="mt-4 pt-2 text-center">
                                                         <div class="signin-other-title position-relative">
-                                                            <h5 class="fs-sm mb-4 title">Sign In with</h5>
+                                                            <h5 class="fs-sm mb-4 title">{{ trans('Dashboard/login_trans.Sign In with') }}</h5>
                                                         </div>
                                                         <div class="pt-2 hstack gap-2 justify-content-center">
                                                             <button type="button" class="btn btn-subtle-primary btn-icon"><i class="ri-facebook-fill fs-lg"></i></button>
@@ -74,9 +86,12 @@
                                                         </div>
                                                     </div>
                                                 </form>
-                            
-                                                <div class="text-center mt-5">
-                                                    <p class="mb-0">Don't have an account ? <a href="{{ route('register') }}" class="fw-semibold text-primary text-decoration-underline"> SignUp</a> </p>
+                                                @if(App::getLocale()== "ar")
+                                                <div class="text-center mt-5" dir="rtl">
+                                                    @else
+                                                    <div class="text-center mt-5">
+                                                    @endif 
+                                                    <p class="mb-0">{{ trans("Dashboard/login_trans.Don't have an account ?") }} <a href="{{ route('register') }}" class="fw-semibold text-primary text-decoration-underline">{{ trans("Dashboard/login_trans.SignUp") }} </a> </p>
                                                 </div>
                                             </div>
                                         </div><!-- end card body -->

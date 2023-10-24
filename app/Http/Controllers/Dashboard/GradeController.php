@@ -9,17 +9,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Grades\GradeStoreRequest;
 use App\Http\Requests\Dashboard\Grades\GradeUpdateRequest;
 use App\ViewModels\Dashboard\GradeViewModel\GradeViewModel;
-
+use App\Actions\Grades\StoreGradeAction;
+use App\Actions\Grades\UpdateGradeAction;
 
 class GradeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $grades=Grade::paginate(15);
-     return view('dashboard.pages.grades.view',compact('grades'));
+        return view('dashboard.pages.grades.view',compact('grades'));
     }
 
     /**
@@ -27,23 +29,18 @@ class GradeController extends Controller
      */
     public function create()
     {
-            // return view('dashboard.pages.grades.view',new GradeViewModel());
-            return view('dashboard.pages.grades.view');
+        $data = new GradeViewModel() ;
+        dd($data->type);
+         return view('dashboard.pages.grades.view',compact('data'));
+        //  return view('dashboard.pages.grades.view');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(GradeStoreRequest $request)
-    public function store(Request $request)
+    public function store(GradeStoreRequest $request)
     {
-        Grade::create([
-            'en_grade' => $request->en_grade,
-            'ar_grade' => $request->ar_grade,
-            'note'     => $request->note,
-            'lang'     => App::getLocale()
-        ]);
-        // app(StoreGradeAction::class)->handle($request->validated());
+        app(StoreGradeAction::class)->handle($request->validated());
         toastr("the grade has been saved");
         return redirect()->route('grades.index');
         // return back()->with('message','the grade has been saved');
@@ -89,6 +86,7 @@ class GradeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy($id)
     {
         $grade = Grade::findorfail($id);

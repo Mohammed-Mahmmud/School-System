@@ -14,7 +14,7 @@ return [
     */
 
     'Welcome Back' => 'مرحبا بعودتكم ',
-    "Login to continue to Hospital System" => "قم بتسجيل الدخول للمتابعة إلى نظام المستشفى.",
+    "lss" => ".قم بتسجيل الدخول للمتابعة إلى نظام المدرسة",
     "login as" => "تسجيل الدخول ك",
     "Patient" => "مريض",
     "Admin" => "أدمن",
@@ -22,7 +22,14 @@ return [
     "User Email" => "البريد الالكتروني للمستخدم",
     "User Password" => "كلمة مرور المستخدم",
     "Forgot password?" => "هل نسيت كلمة السر؟",
-    "" => "",
+    "Email" => "الحساب الالكتروني ",
+    "Password" => "كلمة المرور",
+    "Remember me" => "تذكرني",
+    "login" => "تسجيل الدخول",
+    "Sign In with" => "تسجيل الدخول بواسطة",
+    "Don't have an account ?" => " لا تملك حساب ؟",
+    "SignUp" => " أنشاء حساب ",
+    "Forgot your password?"=> "نسيت كلمة المرور ؟",
 
 
 

@@ -11,7 +11,7 @@ class GradeStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class GradeStoreRequest extends FormRequest
     {
         return [
             'en_grade'=>['required','string'],
-            'en_grade'=>['required','string'],
+            'ar_grade'=>['required','string'],
             'note'=>['nullable'],
         ];
     }
