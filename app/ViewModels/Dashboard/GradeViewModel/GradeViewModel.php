@@ -9,6 +9,7 @@ class GradeViewModel extends ViewModel
 {
     public  $type;
     public $grade;
+    
     public function __construct($grade = null )
     {
         $this->grade= is_null($grade) ? new Grade(old()) : $grade;
@@ -19,7 +20,6 @@ class GradeViewModel extends ViewModel
         return is_null($this->grade->id)
             ? route('grades.store')
             : route('grades.update', $this->grade);
-
     }
 
     public function method(): string

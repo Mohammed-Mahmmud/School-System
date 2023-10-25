@@ -96,7 +96,7 @@
                                     <td>
                                         <div class="d-flex gap-2">
                                             <div class="edit">
-                                                <a class="btn btn-sm btn-success edit-item-btn" href="{{ route('grades.edit',$item->id) }}" data-bs-toggle="modal" data-bs-target="#showModal2">Edit</a>
+                                                <a class="btn btn-sm btn-success edit-item-btn" href="{{ route('grades.edit',$item->id) }}" data-bs-toggle="modal" data-bs-target="#showModal">Edit</a>
                                                 {{-- <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button> --}}
                                             </div>
                                             <div class="remove">
@@ -144,15 +144,27 @@
     <!-- end col -->
 </div>
 <!-- end row -->
-{{-- create form --}}
-<form class="tablelist-form"   action="{{ route('grades.store') }}" method="POST"> 
-    @csrf
+@php
+    if(!empty($grade)){
+        $action = route('grades.update',$grade);
+        $method = "PUT"; 
+        $type   = "edit";
+    }else{
+        $action = route('grades.store');
+        $method = "POST"; 
+        $type   = "Create";
+    }
     
+@endphp
+{{-- create form --}}
+<form class="tablelist-form" action="{{$action }}" method="POST"> 
+    @csrf
+    @method($method)
 <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel">{{ $data->type ?? "add" }} Grade</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ $type}} Grade</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
             <form class="tablelist-form" action="" method=""> 
@@ -180,7 +192,7 @@
                     <div class="hstack gap-2 justify-content-end">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         
-                            <button type="submit" class="btn btn-success" id="add-btn">Add grade</button>
+                            <button type="submit" class="btn btn-success" id="add-btn">{{ $type }} grade</button>
                         </form>
                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                     </div>

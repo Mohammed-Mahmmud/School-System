@@ -59,7 +59,7 @@ class GradeController extends Controller
      */
     public function edit($id)
     {       
-        dd($id);
+        // dd($id);
         $grade = Grade::findorfail($id);
         // dd($grade);
         // return view('dashboard.pages.grades.view',new GradeViewModel($grade));
@@ -69,9 +69,9 @@ class GradeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(GradeUpdateRequest $request, $id)
+    public function update(GradeUpdateRequest $request, $grade)
     {
-        $grade = Grade::findorfails($id);
+        // $grade = Grade::findorfails($id);
         $grade->update([
             'en_grade' => $request->en_grade,
             'ar_grade' => $request->ar_grade,

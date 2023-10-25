@@ -2,7 +2,7 @@
  <div class="app-menu navbar-menu">
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="{{ route('mainDashboard') }}" class="logo logo-dark">
+        <a href="{{ route('mainDashboard.index') }}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{asset('dashboard')}}/assets/images/logo-sm.png" alt="" height="22">
             </span>
@@ -10,7 +10,7 @@
                 <img src="{{asset('dashboard')}}/assets/images/logo-dark.png" alt="" height="22">
             </span>
         </a>
-        <a href="{{ route('mainDashboard') }}" class="logo logo-light">
+        <a href="{{ route('mainDashboard.index') }}" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{asset('dashboard')}}/assets/images/logo-sm.png" alt="" height="22">
             </span>

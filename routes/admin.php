@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Dashboard\HomeController;
+
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\GradeController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -9,13 +10,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Admin Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 Route::group(
     [
@@ -23,16 +19,15 @@ Route::group(
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){
         
-        
-            require __DIR__.'/auth.php';
+        require __DIR__.'/auth.php';
 
         //Dashboard Routes
         Route::prefix('admin')->middleware('auth')->group(function(){
-            Route::get('/',[HomeController::class,'index'])->name('mainDashboard');
+            Route::resource('/',DashboardController::class)->names('mainDashboard');
             Route::resource('grades', GradeController::class)->names('grades');
         });
 
 
-
+    
 
 });
