@@ -20,7 +20,7 @@ class GradeController extends Controller
 
     public function index()
     {
-        $grades=Grade::paginate(15);
+        $grades=Grade::paginate(3);
         return view('dashboard.pages.grades.view',compact('grades'));
     }
 

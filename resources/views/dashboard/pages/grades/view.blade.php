@@ -20,12 +20,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Grades</h4>
+                        <h4 class="mb-sm-0">{{ trans('Dashboard/grades.grades') }}</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Grades</a></li>
-                                <li class="breadcrumb-item active">view grades</li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">{{ trans('Dashboard/grades.grades') }}</a></li>
+                                <li class="breadcrumb-item active">{{ trans('Dashboard/grades.viewGrades') }}</li>
                             </ol>
                         </div>
 
@@ -38,7 +38,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title mb-0">Add, Edit & Remove Grades</h4>
+                <h4 class="card-title mb-0">{{ trans('Dashboard/grades.addGrades') }}</h4>
             </div><!-- end card header -->
 
             <div class="card-body">
@@ -46,7 +46,7 @@
                     <div class="row g-4 mb-3">
                         <div class="col-sm-auto">
                             <div>
-                                <button type="button" class="btn btn-info add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add Grade</button>
+                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i>{{ trans('Dashboard/grades.addGrade') }}</button>
                                 <button class="btn btn-subtle-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
@@ -69,10 +69,11 @@
                                             <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                         </div>
                                     </th>
-                                    <th class="sort" data-sort="customer_name">Grade</th>
-                                    <th class="sort" data-sort="email">Note</th>
-                                    <th class="sort" data-sort="date">Joining Date</th>
-                                    <th class="sort" data-sort="action">Action</th>
+                                    <th class="sort" data-sort="customer_name">#</th>
+                                    <th class="sort" data-sort="customer_name">{{ trans('Dashboard/grades.grade') }}</th>
+                                    <th class="sort" data-sort="email">{{ trans('Dashboard/grades.note') }}</th>
+                                    <th class="sort" data-sort="date">{{ trans('Dashboard/grades.joinDate') }}</th>
+                                    <th class="sort" data-sort="action">{{ trans('Dashboard/grades.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
@@ -89,6 +90,15 @@
                                    @php
                                        $lan_grade = App::getLocale()."_grade";
                                    @endphp
+                                   <td class="email">
+                                   @for($i=1; $i <= count($grades) ; $i++) 
+                                    {{ $i }}                                    
+                                   @endfor
+                                
+                                     
+                                       
+                                    
+                                       </td>
                                     <td class="customer_name">{{$item->$lan_grade}}</td>
                                     {{-- <td class="customer_name">{{ $grade->en_grade }}</td> --}}
                                     <td class="email">{{  $item->note }}</td>
@@ -96,7 +106,7 @@
                                     <td>
                                         <div class="d-flex gap-2">
                                             <div class="edit">
-                                                <a class="btn btn-sm btn-success edit-item-btn" href="{{ route('grades.edit',$item->id) }}" data-bs-toggle="modal" data-bs-target="#showModal">Edit</a>
+                                                <a class="btn btn-sm btn-info edit-item-btn" href="{{ route('grades.edit',$item->id) }}" data-bs-toggle="modal" data-bs-target="#showModal">{{ trans('Dashboard/grades.edit') }}</a>
                                                 {{-- <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button> --}}
                                             </div>
                                             <div class="remove">
@@ -104,7 +114,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                      <button class="btn btn-sm btn-danger remove-item-btn" type="submit">
-                                                        Remove
+                                                        {{ trans('Dashboard/grades.remove') }}
                                                     </button>
                                                 </form>
                                                 <i class="m-nav__link-icon fa fa-trash-o"></i>
@@ -126,15 +136,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <div class="pagination-wrap hstack gap-2">
-                            <a class="page-item pagination-prev disabled" href="#">
-                                Previous
-                            </a>
-                            <ul class="pagination listjs-pagination mb-0"></ul>
-                            <a class="page-item pagination-next" href="#">
-                                Next
-                            </a>
-                        </div>
+                        {{ $grades->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div><!-- end card -->

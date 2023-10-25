@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Home Language Lines
+    | Grade Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during home for various
@@ -13,6 +13,15 @@ return [
     |
     */
 
-    'Menu' => 'القائمة الرئيسية ',
-
+    'Menu' => 'Menu',
+    'grades' => 'Grades',
+    'addGrades' =>'Add, Edit & Remove Grades',
+    'viewGrades' => 'view grades',
+    'addGrade' =>'Add Grade',
+    'edit' => 'Edit',
+    'remove' => 'Remove',
+    'grade' => 'Grade',
+    'note' => 'Note',
+    'joinDate' => 'Joining Date',
+    'action' => 'Action',
 ];
