@@ -9,7 +9,7 @@ class GradeViewModel extends ViewModel
 {
     public  $type;
     public $grade;
-    
+
     public function __construct($grade = null )
     {
         $this->grade= is_null($grade) ? new Grade(old()) : $grade;

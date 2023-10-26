@@ -11,6 +11,7 @@ use App\Http\Requests\Dashboard\Grades\GradeUpdateRequest;
 use App\ViewModels\Dashboard\GradeViewModel\GradeViewModel;
 use App\Actions\Grades\StoreGradeAction;
 use App\Actions\Grades\UpdateGradeAction;
+use Exception;
 
 class GradeController extends Controller
 {
@@ -20,8 +21,13 @@ class GradeController extends Controller
 
     public function index()
     {
-        $grades=Grade::paginate(3);
-        return view('dashboard.pages.grades.view',compact('grades'));
+        try{
+            $grades = Grade::paginate(10);
+            return view('dashboard.pages.grades.view',compact('grades')); 
+        }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+           }
     }
 
     /**
@@ -30,9 +36,11 @@ class GradeController extends Controller
     public function create()
     {
         $data = new GradeViewModel() ;
-        dd($data->type);
-         return view('dashboard.pages.grades.view',compact('data'));
-        //  return view('dashboard.pages.grades.view');
+        $action = $data->action();
+        $method = $data->method();
+        $type = $data->type;
+        //  return view('dashboard.pages.grades.view',compact('data'));
+         return view('dashboard.pages.grades.view',compact('action','method','type'));
     }
 
     /**
@@ -40,10 +48,10 @@ class GradeController extends Controller
      */
     public function store(GradeStoreRequest $request)
     {
+       
         app(StoreGradeAction::class)->handle($request->validated());
-        toastr("the grade has been saved");
+        toastr(trans('Dashboard/toastr.succes'));
         return redirect()->route('grades.index');
-        // return back()->with('message','the grade has been saved');
     }
 
     /**
@@ -59,27 +67,29 @@ class GradeController extends Controller
      */
     public function edit($id)
     {       
-        // dd($id);
+      try{
         $grade = Grade::findorfail($id);
         // dd($grade);
         // return view('dashboard.pages.grades.view',new GradeViewModel($grade));
         return view('dashboard.pages.grades.view',compact('grade'));
     }
-
+    catch(Exception $e){
+        return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
+       }
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(GradeUpdateRequest $request, $grade)
     {
-        // $grade = Grade::findorfails($id);
-        $grade->update([
-            'en_grade' => $request->en_grade,
-            'ar_grade' => $request->ar_grade,
-            'note' => $request->note,
-            'lang' => App::getLocale()
-        ]);
-        toastr("the grade has been updated",'info',"Updated");
+        try{
+        app(StoreGradeAction::class)->handle($grade,$request->validated());
+        toastr(trans('Dashboard/toastr.info'),'info',trans('Dashboard/toastr.updated'));
         return redirect()->route('grades.index');
+    }
+        catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+           }
     }
     
 
@@ -91,7 +101,7 @@ class GradeController extends Controller
     {
         $grade = Grade::findorfail($id);
         $grade->delete();
-           toastr("the grade has been removed",'error',"Deleted");
+           toastr(trans('Dashboard/toastr.destroy') ,'error',trans('Dashboard/toastr.deleted'));
           return back();
     }
 }

@@ -12,7 +12,6 @@
 @endsection
 @section('content')
 <div class="main-content">
-
     <div class="page-content">
         <div class="container-fluid">
 
@@ -40,13 +39,14 @@
             <div class="card-header">
                 <h4 class="card-title mb-0">{{ trans('Dashboard/grades.addGrades') }}</h4>
             </div><!-- end card header -->
-
+           
             <div class="card-body">
                 <div id="customerList">
                     <div class="row g-4 mb-3">
                         <div class="col-sm-auto">
                             <div>
-                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i>{{ trans('Dashboard/grades.addGrade') }}</button>
+                                {{-- <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i>{{ trans('Dashboard/grades.addGrade') }}</button> --}}
+                                <a class="btn btn-success add-btn" href="{{ route('grades.create') }}" data-bs-toggle="modal" data-bs-target="#showModal">{{ trans('Dashboard/grades.addGrade') }}</a>
                                 <button class="btn btn-subtle-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
@@ -59,7 +59,15 @@
                             </div>
                         </div>
                     </div>
-
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                     <div class="table-responsive table-card mt-3 mb-1">
                         <table class="table align-middle table-nowrap" id="customerTable">
                             <thead class="table-light">
@@ -78,29 +86,19 @@
                             </thead>
                             <tbody class="list form-check-all">
                                 {{-- index fn --}}
+                                @php
+                                //  $lan_grade = App::getLocale()."_grade";
+                                       $i = 1 ;
+                                @endphp
                                 @foreach($grades as $item)
                                 <tr>
                                     <th scope="row">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                         </div>
-                                    </th>
-                                        
-                                    <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
-                                   @php
-                                       $lan_grade = App::getLocale()."_grade";
-                                   @endphp
-                                   <td class="email">
-                                   @for($i=1; $i <= count($grades) ; $i++) 
-                                    {{ $i }}                                    
-                                   @endfor
-                                
-                                     
-                                       
-                                    
-                                       </td>
-                                    <td class="customer_name">{{$item->$lan_grade}}</td>
-                                    {{-- <td class="customer_name">{{ $grade->en_grade }}</td> --}}
+                                    </th>  
+                                   <td class="email">{{ $i++}}</td>
+                                    <td class="customer_name">{{$item->name}}</td>
                                     <td class="email">{{  $item->note }}</td>
                                     <td class="date">{{ $item->created_at }}</td>
                                     <td>
@@ -154,12 +152,12 @@
     }else{
         $action = route('grades.store');
         $method = "POST"; 
-        $type   = "Create";
+        $type   = "create";
     }
     
 @endphp
 {{-- create form --}}
-<form class="tablelist-form" action="{{$action }}" method="POST"> 
+<form class="tablelist-form" action="{{$action}}" method="POST"> 
     @csrf
     @method($method)
 <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -174,27 +172,27 @@
                     <div class="mb-3">
                         <div class="row">
                         <div class="col-6">
-                        <label for="customername-field" class="form-label" ></label>EN Grade Name</label>
-                        <input type="text" id="customername-field" name ="en_grade" class="form-control" placeholder="EN Enter Name"  required="">
+                        <label for="customername-field" class="form-label" ></label>{{ trans('Dashboard/grades.en_grade') }}</label>
+                        <input type="text" id="customername-field" name ="en_grade" class="form-control" placeholder="{{ trans('Dashboard/grades.placeholderEN') }}"  required>
                     </div>
                     <div class="col-6">
-                        <label for="customername-field" class="form-label">AR Grade Name</label>
-                        <input type="text" id="customername-field" name = "ar_grade" class="form-control" placeholder="AR Enter Name"  required="">
+                        <label for="customername-field" class="form-label">{{ trans('Dashboard/grades.ar_grade') }}</label>
+                        <input type="text" id="customername-field" name = "ar_grade" class="form-control" placeholder="{{ trans('Dashboard/grades.placeholderAR') }}"  required>
                     </div>
                     </div>
                 </div>
                     <div class="mb-3">
-                        <label for="note-field" class="form-label">Notes</label>
-                        <textarea type="text" id="note-field" name="note" class="form-control" placeholder="Enter notes"  required="">
+                        <label for="note-field" class="form-label">{{ trans('Dashboard/grades.note') }}</label>
+                        <textarea type="text" id="note-field" name="note" class="form-control" placeholder="Enter notes"  >
                         </textarea>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('Dashboard/grades.close') }}</button>
                         
-                            <button type="submit" class="btn btn-success" id="add-btn">{{ $type }} grade</button>
+                            <button type="submit" class="btn btn-success" id="add-btn">{{ trans("Dashboard/grades.".$type."_grade") }}</button>
                         </form>
                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                     </div>

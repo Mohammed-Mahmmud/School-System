@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Home Language Lines
+    | Toastr Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during home for various
@@ -12,7 +12,12 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+    'succes' =>  'Data has been saved',
+    'info'   =>  'Data has been updated',
+    'destroy' => 'Data has been removed',
+    'deleted'   =>  'Deleted', 
+     'updated'    => 'Updated',
+     
 
-    'Menu' => 'القائمة الرئيسية ',
-
+    
 ];

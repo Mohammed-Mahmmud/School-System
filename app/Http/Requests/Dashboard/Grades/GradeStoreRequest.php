@@ -24,7 +24,15 @@ class GradeStoreRequest extends FormRequest
         return [
             'en_grade'=>['required','string'],
             'ar_grade'=>['required','string'],
-            'note'=>['nullable'],
+            'note'=>'required',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'en_grade.reuired' => trans('Dashboard/validation.required'),
+            'ar_grade.required' => trans('Dashboard/validation.required'),
+            'note.required' => trans('Dashboard/validation.required'),
         ];
     }
 }

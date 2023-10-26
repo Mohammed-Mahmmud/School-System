@@ -13,10 +13,22 @@ return [
     |
     */
 
-    'Menu' => 'Menu',
-    'Sections'=>'Sections',
-    'view-sections'=>' View Sections',
-    'grades'=>'School Grades',
-    'grades-view'=>'School Grade Menu',
-    'grades-add'=>'Add Grade',
+    'Menu'           =>  'Menu',
+    'view-sections'  =>  'View Sections',
+    'grades'         =>  'School Grades',
+    'grades-view'    =>  'School Grade Menu',
+    'grades-add'     =>  'Add Grade',
+
+    'classroom'      =>  'Classroom',
+    'sections'       =>  'Sections',
+    'students'       =>  'Students',
+    'teachers'       =>  'Teachers',
+    'parents'        =>  'Parents',
+    'accounts'       =>  'Accounts',
+    'attendance'     =>  'Attendance',
+    'exams'          =>  'Exams',
+    'library'        =>  'Library',
+    'online_classes' =>  'Online Classes',
+    'settings'       =>  'Settings',
+    'users'          =>  'Users',
 ];

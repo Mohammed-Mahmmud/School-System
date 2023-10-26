@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'School System'),
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +168,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // Spatie Transpatable 
+        Spatie\Translatable\TranslatableServiceProvider::class,
+        //  Illuminate\Translation\TranslationServiceProvider::class,
+    //  Spatie\TranslationLoader\TranslationServiceProvider::class,
     ])->toArray(),
 
     /*

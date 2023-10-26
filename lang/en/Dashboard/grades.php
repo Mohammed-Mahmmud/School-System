@@ -20,8 +20,16 @@ return [
     'addGrade' =>'Add Grade',
     'edit' => 'Edit',
     'remove' => 'Remove',
-    'grade' => 'Grade',
+    'grade' => 'Grade Name',
     'note' => 'Note',
     'joinDate' => 'Joining Date',
-    'action' => 'Action',
+    'action' => 'Actions',
+    'en_grade' => 'English Grade Name',
+    'ar_grade' => 'Arabic Grade Name',
+    'placeholderEN' => ' Enter Ar Grade Name',
+    'placeholderAR' => ' Enter En Grade Name',
+    'close' => "Close",
+    'create_grade' => 'Create Grade',
+
+
 ];
