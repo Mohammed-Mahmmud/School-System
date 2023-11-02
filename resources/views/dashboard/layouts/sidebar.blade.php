@@ -32,7 +32,7 @@
 
                 <li class="menu-title" ><span data-key="t-menu">{{ trans('Dashboard/sidebar.Menu') }}</span></li>
                 {{-- add section --}}
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link collapsed" href="#section" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="section">
                         <i class="ph-paint-brush-broad"></i> <span data-key="ph-paint-brush-broad">{{ trans('Dashboard/sections.sections') }}</span>
                     </a>
@@ -43,13 +43,13 @@
                             </li>                       
                         </ul>
                     </div>
-                </li>
+                </li> --}}
                 {{-- end of section --}}
                 {{-- new side bar --}}
                 @php
                 $sections = App\Models\Dashboard\Section::where('trash',0)->orderBy('order','asc')->get();
                 @endphp 
-                @foreach ($sections as $section )
+                {{-- @foreach ($sections as $section )
                     @php
                         $sub = $section->where('sub_of',$section->id)->get('name');
                         // dd($sub);
@@ -62,13 +62,12 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                             
-                                {{-- <a href= "{{ $section->link }} " class="nav-link" data-key="t-analytics"> {{ getSectionName($section->sud_of) }} </a> --}}
                                 <a href= "{{ route($section->link) }} " class="nav-link" data-key="t-analytics"> {{ getSectionName($section->sud_of) }} </a>
                             </li>                       
                         </ul>
                     </div>
                 </li>
-                @endforeach
+                @endforeach --}}
 
                 {{-- end side bar --}}
                

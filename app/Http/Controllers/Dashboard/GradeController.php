@@ -69,7 +69,6 @@ class GradeController extends Controller
     {       
       try{
         $grade = Grade::findorfail($id);
-        // dd($grade);
         // return view('dashboard.pages.grades.view',new GradeViewModel($grade));
         return view('dashboard.pages.grades.view',compact('grade'));
     }
@@ -80,10 +79,11 @@ class GradeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(GradeUpdateRequest $request, $grade)
+    public function update(GradeUpdateRequest $request,$id)
     {
         try{
-        app(StoreGradeAction::class)->handle($grade,$request->validated());
+            $grade = Grade::findorfail($id);
+        app(UpdateGradeAction::class)->handle($grade,$request->validated());
         toastr(trans('Dashboard/toastr.info'),'info',trans('Dashboard/toastr.updated'));
         return redirect()->route('grades.index');
     }

@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\App;
 class UpdateGradeAction
 {
     
-    public function handle(Grade $grade,array $data)
+    public function handle(Grade $grade , array $data)
     {
         $grade->update([
-            'name' => ['en' => $data['en_grade'],'ar'=> $data['ar_grade']],
-                'note'     => $data['note'],
+            'name' => json_encode(['en' => $data['en_grade'],'ar'=> $data['ar_grade']]),
+            'note' => $data['note'],
             ]);
             return $grade;
     }
