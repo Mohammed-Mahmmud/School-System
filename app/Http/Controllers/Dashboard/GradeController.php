@@ -36,6 +36,7 @@ class GradeController extends Controller
     public function create()
     {
         $data = new GradeViewModel() ;
+        dd($data);
         $action = $data->action();
         $method = $data->method();
         $type = $data->type;
@@ -79,10 +80,9 @@ class GradeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(GradeUpdateRequest $request,$id)
-    {
+    public function update(GradeUpdateRequest $request, Grade $grade)
+    { 
         try{
-            $grade = Grade::findorfail($id);
         app(UpdateGradeAction::class)->handle($grade,$request->validated());
         toastr(trans('Dashboard/toastr.info'),'info',trans('Dashboard/toastr.updated'));
         return redirect()->route('grades.index');
@@ -97,9 +97,8 @@ class GradeController extends Controller
      * Remove the specified resource from storage.
      */
 
-    public function destroy($id)
+    public function destroy(Grade $grade)
     {
-        $grade = Grade::findorfail($id);
         $grade->delete();
            toastr(trans('Dashboard/toastr.destroy') ,'error',trans('Dashboard/toastr.deleted'));
           return back();

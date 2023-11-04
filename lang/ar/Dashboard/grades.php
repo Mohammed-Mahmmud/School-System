@@ -30,6 +30,10 @@ return [
     'placeholderAR' => ' ادخل اسم المرحلة بالعربية',
     'close' => "اغلاق",
     'create_grade' => 'انشاء مرحلة',
+    'create_new_grade' => 'انشاء مرحلة جديدة',
+    'edit_grade' => 'تعديل المرحلة',
+
+
 
 
 

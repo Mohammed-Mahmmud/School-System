@@ -30,6 +30,8 @@ return [
     'placeholderAR' => ' Enter En Grade Name',
     'close' => "Close",
     'create_grade' => 'Create Grade',
+    'edit_grade' => 'Edit Grade',
+    'create_new_grade' => 'Create New Grade',
 
 
 ];

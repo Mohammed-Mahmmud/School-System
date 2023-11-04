@@ -91,9 +91,6 @@
                                        $i = 1 ;
                                 @endphp
                                 @foreach($grades as $item)
-                                @php
-                                    $name = json_decode($item->name, true);
-                                @endphp
                                 <tr>
                                     <th scope="row">
                                         <div class="form-check">
@@ -101,17 +98,16 @@
                                         </div>
                                     </th>  
                                    <td class="email">{{ $i++}}</td>
-                                    <td class="customer_name">{{$name[App::getLocale()]}}</td>
+                                    <td class="customer_name">{{$item->getTranslation('name',App::getLocale())}}</td>
                                     <td class="email">{{  $item->note }}</td>
                                     <td class="date">{{ $item->created_at }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <div class="edit">
-                                                <a class="btn btn-sm btn-info edit-item-btn" href="{{ route('grades.edit',$item->id) }}" data-bs-toggle="modal" data-bs-target="#{{ $item->id }}">{{ trans('Dashboard/grades.edit') }}</a>
-                                                {{-- <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button> --}}
+                                                <a class="btn btn-sm btn-info edit-item-btn" href="" data-bs-toggle="modal" data-bs-target="#edit{{ $item->id }}">{{ trans('Dashboard/grades.edit') }}</a>
                                             </div>
                                             <div class="remove">
-                                                <form action="{{ route('grades.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?')">
+                                                <form action="{{ route('grades.destroy', $item) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?')">
                                                     @csrf
                                                     @method('DELETE')
                                                      <button class="btn btn-sm btn-danger remove-item-btn" type="submit">
@@ -124,18 +120,14 @@
                                     </td>
                                 </tr>
                                     {{-- update --}}
-    @php
-        // $grade = \App\Models\Dashboard\Grade::find($item->id);
-        $nameData = json_decode($item->name, true); // Decode the JSON into an associative array
-    @endphp
-<form class="tablelist-form"   action="{{ route('grades.update',$item->id) }}" method="POST"> 
+<form class="tablelist-form" action="{{ route('grades.update',$item) }}" method="POST"> 
     @csrf
     @method('PUT')
-<div class="modal fade" id="{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+<div class="modal fade" id="edit{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel2">Update Grade</h5>
+                <h5 class="modal-title" id="exampleModalLabel2">{{ trans('Dashboard/grades.edit_grade') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
             <form class="tablelist-form" action="" method=""> 
@@ -144,11 +136,11 @@
                         <div class="row">
                         <div class="col-6">
                         <label for="customername-field" class="form-label" ></label>EN Grade Name</label>
-                        <input type="text" id="customername-field" name ="en_grade" class="form-control" placeholder="EN Enter Name" value="{{ $nameData['en'] }}"  required="">
+                        <input type="text" id="customername-field" name ="en_grade" class="form-control" placeholder="EN Enter Name" value="{{ $item->getTranslation('name','en') }}"  required="">
                     </div>
                     <div class="col-6">
                         <label for="customername-field" class="form-label">AR Grade Name</label>
-                        <input type="text" id="customername-field" name = "ar_grade" class="form-control" placeholder="AR Enter Name" value="{{ $nameData['ar'] }}"  required="">
+                        <input type="text" id="customername-field" name = "ar_grade" class="form-control" placeholder="AR Enter Name" value="{{ $item->getTranslation('name','ar') }}"  required="">
                     </div>
                     </div>
                 </div>
@@ -170,8 +162,8 @@
                     </div>
                 </div>
             </form> 
+            {{-- end update --}}
         
-                                    {{-- end update --}}
                                 @endforeach
                             </tbody>
                         </table>
@@ -195,18 +187,7 @@
     <!-- end col -->
 </div>
 <!-- end row -->
-@php
-    // if(!empty($grade)){
-    //     $action = route('grades.update',$grade);
-    //     $method = "PUT"; 
-    //     $type   = "edit";
-    // }else{
-    //     $action = route('grades.store');
-    //     $method = "POST"; 
-    //     $type   = "create";
-    // }
-    
-@endphp
+
 {{-- create form --}}
 <form class="tablelist-form" action="{{route('grades.store')}}" method="POST"> 
     @csrf
@@ -215,7 +196,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel">Create Grade</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ trans('Dashboard/grades.create_new_grade') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
             <form class="tablelist-form" action="" method=""> 
@@ -249,49 +230,6 @@
                     </div>
                 </div>
             </form>
-
-            {{-- update form
-<form class="tablelist-form"   action="{{ route('grades.store') }}" method="POST"> 
-    @csrf
-    
-<div class="modal fade" id="showModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel2">{{ $data->type ?? "add" }} Grade</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
-            </div>
-            <form class="tablelist-form" action="" method=""> 
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <div class="row">
-                        <div class="col-6">
-                        <label for="customername-field" class="form-label" ></label>EN Grade Name</label>
-                        <input type="text" id="customername-field" name ="en_grade" class="form-control" placeholder="EN Enter Name"  required="">
-                    </div>
-                    <div class="col-6">
-                        <label for="customername-field" class="form-label">AR Grade Name</label>
-                        <input type="text" id="customername-field" name = "ar_grade" class="form-control" placeholder="AR Enter Name"  required="">
-                    </div>
-                    </div>
-                </div>
-                    <div class="mb-3">
-                        <label for="note-field" class="form-label">Notes</label>
-                        <textarea type="text" id="note-field" name="note" class="form-control" placeholder="Enter notes"  required="">
-                        </textarea>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        
-                            <button type="submit" class="btn btn-success" id="add-btn">Add grade</button>
-                        </form>
-                        <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
-                    </div>
-                </div>
-            </form> --}}
         </div>
     </div>
 </div>
