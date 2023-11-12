@@ -91,11 +91,9 @@
                     <div class="collapse menu-dropdown" id="sidebarLayouts1">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                                <a href="{{ route('classrooms.index') }}"  class="nav-link" data-key="t-horizontal"> {{ trans('Dashboard/sidebar.classrooms-view') }}</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
-                            </li>
+                           
                           
                         </ul>
                     </div>
@@ -108,10 +106,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts2">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item">
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>
@@ -124,10 +122,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts3">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item">
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>
@@ -139,10 +137,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts4">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item">
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>
@@ -154,10 +152,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts5">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item">
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>
@@ -169,10 +167,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts6">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item">
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>
@@ -184,10 +182,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts7">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item"z>
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>
@@ -199,10 +197,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts8">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item">
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>
@@ -214,10 +212,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts9">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item">
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>
@@ -229,10 +227,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts10">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item">
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>
@@ -244,10 +242,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts11">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item">
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>
@@ -260,10 +258,10 @@
     <div class="collapse menu-dropdown" id="sidebarLayouts12">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-                <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                <a href="layouts-horizontal.html"  class="nav-link" data-key="t-horizontal">Horizontal</a>
             </li>
             <li class="nav-item">
-                <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                <a href="layouts-detached.html"  class="nav-link" data-key="t-detached">Detached</a>
             </li>
           
         </ul>

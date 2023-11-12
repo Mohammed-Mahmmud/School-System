@@ -35,24 +35,24 @@ class GradeController extends Controller
      */
     public function create()
     {
-        $data = new GradeViewModel() ;
-        dd($data);
-        $action = $data->action();
-        $method = $data->method();
-        $type = $data->type;
-        //  return view('dashboard.pages.grades.view',compact('data'));
-         return view('dashboard.pages.grades.view',compact('action','method','type'));
+        try{
+         return view('dashboard.pages.grades.view');
     }
-
+    catch(Exception $e){
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+       } 
+}
     /**
      * Store a newly created resource in storage.
      */
     public function store(GradeStoreRequest $request)
     {
-       
+       try{
         app(StoreGradeAction::class)->handle($request->validated());
-        toastr(trans('Dashboard/toastr.succes'));
         return redirect()->route('grades.index');
+     }catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+           }
     }
 
     /**
@@ -84,7 +84,6 @@ class GradeController extends Controller
     { 
         try{
         app(UpdateGradeAction::class)->handle($grade,$request->validated());
-        toastr(trans('Dashboard/toastr.info'),'info',trans('Dashboard/toastr.updated'));
         return redirect()->route('grades.index');
     }
         catch(Exception $e){
@@ -99,8 +98,12 @@ class GradeController extends Controller
 
     public function destroy(Grade $grade)
     {
+        try{
         $grade->delete();
            toastr(trans('Dashboard/toastr.destroy') ,'error',trans('Dashboard/toastr.deleted'));
           return back();
-    }
+        }catch(Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+           }
+        }
 }

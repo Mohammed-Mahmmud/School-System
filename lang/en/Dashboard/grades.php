@@ -32,6 +32,10 @@ return [
     'create_grade' => 'Create Grade',
     'edit_grade' => 'Edit Grade',
     'create_new_grade' => 'Create New Grade',
+    'delete_grade' => 'Delete Grade',
+    'update_grade' => 'Update Grade',
+    'delete_message' => 'Are you Sure You want to Remove this Grade ?',
+    'exists' => 'That Grade Name Has Been Entered Before',
 
 
 ];

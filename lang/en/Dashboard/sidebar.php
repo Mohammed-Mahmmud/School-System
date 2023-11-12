@@ -16,7 +16,8 @@ return [
     'Menu'           =>  'Menu',
     'view-sections'  =>  'View Sections',
     'grades'         =>  'School Grades',
-    'grades-view'    =>  'School Grade Menu',
+    'grades-view'    =>  'View School Grade Menu',
+    'classrooms-view'    =>  'View School Classrooms ',
     'grades-add'     =>  'Add Grade',
 
     'classroom'      =>  'Classroom',

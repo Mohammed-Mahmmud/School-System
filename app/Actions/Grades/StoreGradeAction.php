@@ -7,11 +7,15 @@ class StoreGradeAction
 {
     public function handle(array $data)
     {
+        if(Grade::where('name->en', $data['en_grade'])->orwhere('name->ar',$data['ar_grade'])->exists()){
+            return redirect()->back()->withErrors($data[App::getLocale().'_grade'].' '.trans('Dashboard/grades.exists'));
+        }else{ 
        $grade = Grade::create([
-           // 'name' => json_encode(['en' => $data['en_grade'],'ar'=> $data['ar_grade']]),
             'name' => ['en' => $data['en_grade'],'ar'=> $data['ar_grade']],
             'note' => $data['note'],
         ]);
+        toastr(trans('Dashboard/toastr.succes'));
         return $grade;
+        }
     }
 }

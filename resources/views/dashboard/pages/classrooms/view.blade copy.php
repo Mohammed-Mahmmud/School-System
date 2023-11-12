@@ -1,10 +1,14 @@
 @extends('dashboard.layouts.master')
-@section('title','School Grades')
+@section('title','School Classrooms')
 @section('css')
+{{-- for edit icons --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{{-- for delete icons --}}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 @if (Session::has('message'))
 <script>
     toastr.success("{{ Session::get('message') }}");
-    </script>    
+    </script>
 @endif
    <!-- Sweet Alert css-->
    <link href="{{asset('dashboard')}}/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
@@ -19,12 +23,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">{{ trans('Dashboard/grades.grades') }}</h4>
+                        <h4 class="mb-sm-0">{{ trans('Dashboard/classrooms.classrooms') }}</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">{{ trans('Dashboard/grades.grades') }}</a></li>
-                                <li class="breadcrumb-item active">{{ trans('Dashboard/grades.viewGrades') }}</li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">{{ trans('Dashboard/classrooms.classrooms') }}</a></li>
+                                <li class="breadcrumb-item active">{{ trans('Dashboard/classrooms.viewClassrooms') }}</li>
                             </ol>
                         </div>
 
@@ -37,16 +41,16 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title mb-0">{{ trans('Dashboard/grades.addGrades') }}</h4>
+                <h4 class="card-title mb-0">{{ trans('Dashboard/classrooms.addClassrooms') }}</h4>
             </div><!-- end card header -->
-           
+
             <div class="card-body">
                 <div id="customerList">
                     <div class="row g-4 mb-3">
                         <div class="col-sm-auto">
                             <div>
-                                {{-- <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i>{{ trans('Dashboard/grades.addGrade') }}</button> --}}
-                                <a class="btn btn-success add-btn" href="{{ route('grades.create') }}" data-bs-toggle="modal" data-bs-target="#showModal">{{ trans('Dashboard/grades.addGrade') }}</a>
+                                {{-- <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i>{{ trans('Dashboard/classrooms.addGrade') }}</button> --}}
+                                <a class="btn btn-success add-btn" href="{{ route('classrooms.create') }}" data-bs-toggle="modal" data-bs-target="#showModal">{{ trans('Dashboard/classrooms.addClassroom') }}</a>
                                 <button class="btn btn-subtle-danger" onclick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
@@ -78,100 +82,132 @@
                                         </div>
                                     </th>
                                     <th class="sort" data-sort="customer_name">#</th>
-                                    <th class="sort" data-sort="customer_name">{{ trans('Dashboard/grades.grade') }}</th>
-                                    <th class="sort" data-sort="email">{{ trans('Dashboard/grades.note') }}</th>
-                                    <th class="sort" data-sort="date">{{ trans('Dashboard/grades.joinDate') }}</th>
-                                    <th class="sort" data-sort="action">{{ trans('Dashboard/grades.action') }}</th>
+                                    <th class="sort" data-sort="customer_name">{{ trans('Dashboard/classrooms.classroom') }}</th>
+                                    <th class="sort" data-sort="email">{{ trans('Dashboard/classrooms.grade') }}</th>
+                                    <th class="sort" data-sort="date">{{ trans('Dashboard/classrooms.joinDate') }}</th>
+                                    <th class="sort" data-sort="action">{{ trans('Dashboard/classrooms.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
                                 {{-- index fn --}}
                                 @php
-                                //  $lan_grade = App::getLocale()."_grade";
+                                //  $lan_classroom = App::getLocale()."_classroom";
                                        $i = 1 ;
                                 @endphp
-                                @foreach($grades as $item)
-                                @php
-                                    $name = json_decode($item->name, true);
-                                @endphp
+                                @foreach($classrooms as $item)
                                 <tr>
                                     <th scope="row">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                         </div>
-                                    </th>  
+                                    </th>
                                    <td class="email">{{ $i++}}</td>
-                                    <td class="customer_name">{{$name[App::getLocale()]}}</td>
-                                    <td class="email">{{  $item->note }}</td>
+                                    <td class="customer_name">{{$item->getTranslation('name',App::getLocale())}}</td>
+                                    <td class="email">{{  $item->grade_id }}</td>
                                     <td class="date">{{ $item->created_at }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <div class="edit">
-                                                <a class="btn btn-sm btn-info edit-item-btn" href="{{ route('grades.edit',$item->id) }}" data-bs-toggle="modal" data-bs-target="#{{ $item->id }}">{{ trans('Dashboard/grades.edit') }}</a>
-                                                {{-- <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button> --}}
+                                                <a class="btn btn-sm btn-info edit-item-btn" href="" data-bs-toggle="modal" data-bs-target="#edit{{ $item->id }}">
+                                                    {{-- {{ trans('Dashboard/classrooms.edit') }} --}}
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
                                             </div>
-                                            <div class="remove">
-                                                <form action="{{ route('grades.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?')">
+                                            {{-- <div class="remove">
+                                                <form action="{{ route('classrooms.destroy', $item) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?')">
                                                     @csrf
                                                     @method('DELETE')
                                                      <button class="btn btn-sm btn-danger remove-item-btn" type="submit">
-                                                        {{ trans('Dashboard/grades.remove') }}
+                                                        {{ trans('Dashboard/classrooms.remove') }}
                                                     </button>
                                                 </form>
                                                 <i class="m-nav__link-icon fa fa-trash-o"></i>
-                                            </div>
+                                            </div> --}}
+
+                                            {{-- delete modal --}}
+                                            <!-- Button trigger modal -->
+     <div class="remove">
+         <a class="btn btn-sm btn-danger remove-item-btn" href="" data-bs-toggle="modal" data-bs-target="#delete{{ $item->id }}">
+            <i class="m-nav__link-icon fa fa-trash-o"></i>
+        </a>
+     </div>
+  <!-- Modal -->
+    <form action="{{ route('classrooms.destroy', $item) }}" method="POST">
+        @csrf
+        @method('DELETE')
+  <div class="modal fade" id="delete{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">{{ trans('Dashboard/classrooms.remove') }} {{ $item->getTranslation('name',App::getLocale()) }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+          </button>
+        </div>
+        <div class="modal-body">
+        {{ trans('Dashboard/classrooms.delete_message').'  '.$item->getTranslation('name',App::getLocale()) }}
+        </div>
+        <div class="modal-footer">
+            <div class="hstack gap-2 justify-content-end">
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">{{ trans('Dashboard/classrooms.close') }}</button>
+
+                    <button type="submit" class="btn btn-danger" id="add-btn">{{ trans('Dashboard/classrooms.delete_classroom') }}</button>
+                </form>
+                <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    </form>
+                                            {{-- ens modal --}}
                                         </div>
                                     </td>
                                 </tr>
                                     {{-- update --}}
-    @php
-        // $grade = \App\Models\Dashboard\Grade::find($item->id);
-        $nameData = json_decode($item->name, true); // Decode the JSON into an associative array
-    @endphp
-<form class="tablelist-form"   action="{{ route('grades.update',$item->id) }}" method="POST"> 
+<form class="tablelist-form" action="{{ route('classrooms.update',$item) }}" method="POST">
     @csrf
     @method('PUT')
-<div class="modal fade" id="{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+<div class="modal fade" id="edit{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel2">Update Grade</h5>
+                <h5 class="modal-title" id="exampleModalLabel2">{{ trans('Dashboard/classrooms.edit').' '.$item->getTranslation('name',App::getLocale()) }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
-            <form class="tablelist-form" action="" method=""> 
+            <form class="tablelist-form" action="" method="">
                 <div class="modal-body">
                     <div class="mb-3">
                         <div class="row">
                         <div class="col-6">
-                        <label for="customername-field" class="form-label" ></label>EN Grade Name</label>
-                        <input type="text" id="customername-field" name ="en_grade" class="form-control" placeholder="EN Enter Name" value="{{ $nameData['en'] }}"  required="">
+                        <label for="customername-field" class="form-label" ></label>{{ trans('Dashboard/classrooms.en_classroom') }}</label>
+                        <input type="text" id="customername-field" name ="en_classroom" class="form-control" placeholder="EN Enter Name" value="{{ $item->getTranslation('name','en') }}"  required="">
                     </div>
                     <div class="col-6">
-                        <label for="customername-field" class="form-label">AR Grade Name</label>
-                        <input type="text" id="customername-field" name = "ar_grade" class="form-control" placeholder="AR Enter Name" value="{{ $nameData['ar'] }}"  required="">
+                        <label for="customername-field" class="form-label">{{ trans('Dashboard/classrooms.ar_classroom') }}</label>
+                        <input type="text" id="customername-field" name = "ar_classroom" class="form-control" placeholder="AR Enter Name" value="{{ $item->getTranslation('name','ar') }}"  required="">
                     </div>
                     </div>
                 </div>
                     <div class="mb-3">
-                        <label for="note-field" class="form-label">Notes</label>
-                        <textarea type="text" id="note" name="note" class="form-control" placeholder="Enter notes"   required="">
-                            {{ $item->note }}
+                        <label for="note-field" class="form-label">{{ trans('Dashboard/classrooms.grade') }}</label>
+                        <textarea type="text" id="grade" name="grade" class="form-control" placeholder="Enter grades"   required="">
+                            {{ $item->grade }}
                         </textarea>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        
-                            <button type="submit" class="btn btn-success" id="add-btn">Update grade</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('Dashboard/classrooms.close') }}</button>
+
+                            <button type="submit" class="btn btn-info" id="add-btn">{{ trans('Dashboard/classrooms.update_classroom') }}</button>
                         </form>
                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                     </div>
                 </div>
-            </form> 
-        
-                                    {{-- end update --}}
+            </form>
+            {{-- end update --}}
+
                                 @endforeach
                             </tbody>
                         </table>
@@ -185,7 +221,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        {{ $grades->links('pagination::bootstrap-5') }}
+                        {{ $classrooms->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div><!-- end card -->
@@ -195,103 +231,58 @@
     <!-- end col -->
 </div>
 <!-- end row -->
-@php
-    // if(!empty($grade)){
-    //     $action = route('grades.update',$grade);
-    //     $method = "PUT"; 
-    //     $type   = "edit";
-    // }else{
-    //     $action = route('grades.store');
-    //     $method = "POST"; 
-    //     $type   = "create";
-    // }
-    
-@endphp
+
 {{-- create form --}}
-<form class="tablelist-form" action="{{route('grades.store')}}" method="POST"> 
+<form class="tablelist-form" action="{{route('classrooms.store')}}" method="POST">
     @csrf
-   
+
 <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel">Create Grade</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ trans('Dashboard/classrooms.create_new_classroom') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
-            <form class="tablelist-form" action="" method=""> 
+            <form class="tablelist-form" action="" method="">
                 <div class="modal-body">
                     <div class="mb-3">
                         <div class="row">
                         <div class="col-6">
-                        <label for="customername-field" class="form-label" ></label>{{ trans('Dashboard/grades.en_grade') }}</label>
-                        <input type="text" id="customername-field" name ="en_grade" class="form-control" placeholder="{{ trans('Dashboard/grades.placeholderEN') }}"  required>
+                        <label for="customername-field" class="form-label" ></label>{{ trans('Dashboard/classrooms.en_classroom') }}</label>
+                        <input type="text" id="customername-field" name ="en_classroom" class="form-control" placeholder="{{ trans('Dashboard/classrooms.placeholderEN') }}"  required>
                     </div>
                     <div class="col-6">
-                        <label for="customername-field" class="form-label">{{ trans('Dashboard/grades.ar_grade') }}</label>
-                        <input type="text" id="customername-field" name = "ar_grade" class="form-control" placeholder="{{ trans('Dashboard/grades.placeholderAR') }}"  required>
+                        <label for="customername-field" class="form-label">{{ trans('Dashboard/classrooms.ar_classroom') }}</label>
+                        <input type="text" id="customername-field" name = "ar_classroom" class="form-control" placeholder="{{ trans('Dashboard/classrooms.placeholderAR') }}"  required>
                     </div>
                     </div>
                 </div>
                     <div class="mb-3">
-                        <label for="note-field" class="form-label">{{ trans('Dashboard/grades.note') }}</label>
-                        <textarea type="text" id="note-field" name="note" class="form-control" placeholder="Enter notes"  >
-                        </textarea>
-                    </div>
+                         <div class="row">
+                            <div class="col-12">
+                        <label for="note-field" class="form-label">{{ trans('Dashboard/classrooms.grade') }}</label>
+                         <select class="form-select rounded-pill mb-3" aria-label="Default select example">
 
+                            <option selected>Open this select Grade</option>
+                            @foreach ($grades as $grade )
+                            <option value="{{ $grade->id }}">{{ $grade->getTranslation('name',App::getLocale()) }}</option>
+                            @endforeach
+                                
+                          </select>
+                    </div>
+                </div>
+                </div>
                 </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('Dashboard/grades.close') }}</button>
-                        
-                            <button type="submit" class="btn btn-success" id="add-btn">{{ trans("Dashboard/grades.create_grade") }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('Dashboard/classrooms.close') }}</button>
+
+                            <button type="submit" class="btn btn-success" id="add-btn">{{ trans("Dashboard/classrooms.create_classroom") }}</button>
                         </form>
                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                     </div>
                 </div>
             </form>
-
-            {{-- update form
-<form class="tablelist-form"   action="{{ route('grades.store') }}" method="POST"> 
-    @csrf
-    
-<div class="modal fade" id="showModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel2">{{ $data->type ?? "add" }} Grade</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
-            </div>
-            <form class="tablelist-form" action="" method=""> 
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <div class="row">
-                        <div class="col-6">
-                        <label for="customername-field" class="form-label" ></label>EN Grade Name</label>
-                        <input type="text" id="customername-field" name ="en_grade" class="form-control" placeholder="EN Enter Name"  required="">
-                    </div>
-                    <div class="col-6">
-                        <label for="customername-field" class="form-label">AR Grade Name</label>
-                        <input type="text" id="customername-field" name = "ar_grade" class="form-control" placeholder="AR Enter Name"  required="">
-                    </div>
-                    </div>
-                </div>
-                    <div class="mb-3">
-                        <label for="note-field" class="form-label">Notes</label>
-                        <textarea type="text" id="note-field" name="note" class="form-control" placeholder="Enter notes"  required="">
-                        </textarea>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        
-                            <button type="submit" class="btn btn-success" id="add-btn">Add grade</button>
-                        </form>
-                        <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
-                    </div>
-                </div>
-            </form> --}}
         </div>
     </div>
 </div>
@@ -312,7 +303,7 @@
                     </div>
                 </div>
                 <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                    <button type="button" class="btn w-sm btn-info" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn w-sm btn-info" data-bs-dismiss="modal">{{ trans('Dashboard/classrooms.close') }}</button>
                     <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete It!</button>
                 </div>
             </div>
@@ -346,10 +337,11 @@
 @endsection
 
 @section('script')
+
 @if (Session::has('message'))
 <script>
     toastr.success("{{ Session::get('message') }}");
-    </script>    
+    </script>
 @endif
 <!-- prismjs plugin -->
 <script src="{{asset('dashboard')}}/assets/libs/prismjs/prism.js"></script>
