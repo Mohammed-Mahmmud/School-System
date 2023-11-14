@@ -1,6 +1,11 @@
 @extends('dashboard.layouts.master')
 @section('title','School Classrooms')
 @section('css')
+{{-- form repeater --}}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+
 {{-- for edit icons --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 {{-- for delete icons --}}
@@ -103,7 +108,11 @@
                                     </th>
                                    <td class="email">{{ $i++}}</td>
                                     <td class="customer_name">{{$item->getTranslation('name',App::getLocale())}}</td>
-                                    <td class="email">{{  $item->grade_id }}</td>
+                                    @php
+                                    $grade_name = $grades->find($item->grade_id)->getTranslation('name',App::getLocale());
+                                    // dd($grade_name);
+                                    @endphp
+                                    <td class="email">{{ $grade_name  }}</td>
                                     <td class="date">{{ $item->created_at }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
@@ -238,7 +247,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">{{ trans('Dashboard/classrooms.create_new_classroom') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
-            <form class="tablelist-form" action="" method="">
+            {{-- <form class="tablelist-form" action="" method="">
                 <div class="modal-body">
                     <div class="mb-3">
                         <div class="row">
@@ -277,7 +286,104 @@
                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                     </div>
                 </div>
+            </form> --}}
+            {{-- <form class="tablelist-form" action="{{ route('your_form_route') }}" method="POST"> --}}
+                @csrf
+                <div class="modal-body">
+                    <div class="repeater">
+                        <div data-repeater-list="classrooms">
+                            <div data-repeater-item class="mb-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">{{ trans('Dashboard/classrooms.en_classroom') }}</label>
+                                        <input type="text" name="en_classroom" class="form-control" placeholder="{{ trans('Dashboard/classrooms.placeholderEN') }}" required>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">{{ trans('Dashboard/classrooms.ar_classroom') }}</label>
+                                        <input type="text" name="ar_classroom" class="form-control" placeholder="{{ trans('Dashboard/classrooms.placeholderAR') }}" required>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <label class="form-label">{{ trans('Dashboard/classrooms.grade') }}</label>
+                                        <select class="form-select rounded-pill mb-3" aria-label="Default select example" name="grade">
+                                            <option selected>Open this select Grade</option>
+                                            @foreach ($grades as $grade)
+                                                <option value="{{ $grade->id }}">{{ $grade->getTranslation('name', App::getLocale()) }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 align-self-center">
+                                    <input data-repeater-delete type="button" class="btn btn-danger" value="{{ trans('Dashboard/classrooms.delete') }}" />
+                                </div>
+                            </div>
+                        </div>
+                        <input data-repeater-create type="button" class="btn btn-success mt-3 mt-lg-0" value="{{ trans('Dashboard/classrooms.add_classroom') }}" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('Dashboard/classrooms.close') }}</button>
+                        <button type="submit" class="btn btn-success" id="add-btn">{{ trans("Dashboard/classrooms.create_classroom") }}</button>
+                    </div>
+                </div>
             </form>
+            
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/jquery.repeater@1.2.1/dist/jquery.repeater.min.js"></script>
+            
+            <script>
+                $(document).ready(function () {
+                    $('.repeater').repeater({
+                        show: function () {
+                            $(this).slideDown();
+                        },
+                        hide: function (deleteElement) {
+                            if (confirm('{{ trans('Dashboard/classrooms.confirm_delete') }}')) {
+                                $(this).slideUp(deleteElement);
+                            }
+                        }
+                    });
+                });
+            </script>
+            
+            {{-- <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">Example</h4>
+                            <form class="repeater" enctype="multipart/form-data">
+                                <div data-repeater-list="group-a">
+                                    <div data-repeater-item class="row">
+                                        <div class="form-group col-lg-2">
+                                            <label for="name">Name</label>
+                                            <input type="text" id="name" name="untyped-input" class="form-control" />
+                                        </div>
+
+                                        <div class="form-group col-lg-2">
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email" class="form-control" />
+                                        </div>
+
+
+
+
+
+                                        <div class="col-lg-2 align-self-center">
+                                            <input data-repeater-delete type="button" class="btn btn-primary btn-block" value="Delete" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <input data-repeater-create type="button" class="btn btn-success mt-3 mt-lg-0" value="Add" />
+                            </form> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
@@ -332,6 +438,16 @@
 @endsection
 
 @section('script')
+  <!-- form repeater js -->
+  <script>
+    // Initialize the repeater
+    $('.repeater').repeater({
+      // Define your configuration options here
+    });
+  </script>
+  <script src="{{asset('dashboard')}}/assets/form-repeater/jquery.repeater/jquery.repeater.min.js"></script>
+  <script src="{{asset('dashboard')}}/assets/form-repeater/form-repeater.int.js"></script>
+  <script src="{{asset('dashboard')}}/assets/form-repeater/app.js"></script>
 
 @if (Session::has('message'))
 <script>
