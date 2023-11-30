@@ -1,11 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('title','School Classrooms')
 @section('css')
-{{-- form repeater --}}
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
-
 {{-- for edit icons --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 {{-- for delete icons --}}
@@ -108,11 +103,7 @@
                                     </th>
                                    <td class="email">{{ $i++}}</td>
                                     <td class="customer_name">{{$item->getTranslation('name',App::getLocale())}}</td>
-                                    @php
-                                    $grade_name = $grades->find($item->grade_id)->getTranslation('name',App::getLocale());
-                                    // dd($grade_name);
-                                    @endphp
-                                    <td class="email">{{ $grade_name  }}</td>
+                                    <td class="email">{{  $item->grade_id }}</td>
                                     <td class="date">{{ $item->created_at }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
@@ -122,7 +113,19 @@
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </div>
-               
+                                            {{-- <div class="remove">
+                                                <form action="{{ route('classrooms.destroy', $item) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                     <button class="btn btn-sm btn-danger remove-item-btn" type="submit">
+                                                        {{ trans('Dashboard/classrooms.remove') }}
+                                                    </button>
+                                                </form>
+                                                <i class="m-nav__link-icon fa fa-trash-o"></i>
+                                            </div> --}}
+
+                                            {{-- delete modal --}}
+                                            <!-- Button trigger modal -->
      <div class="remove">
          <a class="btn btn-sm btn-danger remove-item-btn" href="" data-bs-toggle="modal" data-bs-target="#delete{{ $item->id }}">
             <i class="m-nav__link-icon fa fa-trash-o"></i>
@@ -185,19 +188,12 @@
                     </div>
                     </div>
                 </div>
-                <div class="col-12">
-                    <label for="note-field" class="form-label">{{ trans('Dashboard/classrooms.grade') }}</label>
-                     <select class="form-select rounded-pill mb-3" aria-label="Default select example" name='grade'>
-                        @php
-                            $gradeName = App\Models\Dashboard\Grade::where('id', $item->grade_id)->first('name');
-                        @endphp
-                        <option selected disabled>{{ $gradeName->getTranslation('name',App::getLocale()) }}</option>
-                        @foreach ($grades as $grade )
-                        <option value="{{ $grade->id }}">{{ $grade->getTranslation('name',App::getLocale()) }}</option>
-                        @endforeach
-                            
-                      </select>
-                </div>
+                    <div class="mb-3">
+                        <label for="note-field" class="form-label">{{ trans('Dashboard/classrooms.grade') }}</label>
+                        <textarea type="text" id="grade" name="grade" class="form-control" placeholder="Enter grades"   required="">
+                            {{ $item->grade }}
+                        </textarea>
+                    </div>
 
                 </div>
                 <div class="modal-footer">
@@ -237,17 +233,17 @@
 <!-- end row -->
 
 {{-- create form --}}
-    <form class="tablelist-form" action="{{route('classrooms.store')}}" method="POST">
+<form class="tablelist-form" action="{{route('classrooms.store')}}" method="POST">
     @csrf
 
-    <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light p-3">
                 <h5 class="modal-title" id="exampleModalLabel">{{ trans('Dashboard/classrooms.create_new_classroom') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
-             <form class="tablelist-form" action="" method="">
+            <form class="tablelist-form" action="" method="">
                 <div class="modal-body">
                     <div class="mb-3">
                         <div class="row">
@@ -265,9 +261,9 @@
                          <div class="row">
                             <div class="col-12">
                         <label for="note-field" class="form-label">{{ trans('Dashboard/classrooms.grade') }}</label>
-                         <select class="form-select rounded-pill mb-3" aria-label="Default select example" name="grade">
+                         <select class="form-select rounded-pill mb-3" aria-label="Default select example"  name="grades">
 
-                            <option selected>Open this select Grade</option>
+                            <option selected disabled>Open this select Grade</option>
                             @foreach ($grades as $grade )
                             <option value="{{ $grade->id }}">{{ $grade->getTranslation('name',App::getLocale()) }}</option>
                             @endforeach
@@ -280,15 +276,13 @@
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('Dashboard/classrooms.close') }}</button>
-                        <button type="submit" class="btn btn-success" id="add-btn">{{ trans("Dashboard/classrooms.create_classroom") }}</button>
+
+                            <button type="submit" class="btn btn-success" id="add-btn">{{ trans("Dashboard/classrooms.create_classroom") }}</button>
+                        </form>
+                        <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                     </div>
                 </div>
             </form>
-        </div>
-                    </div>
-                </div>
-            </div>
-            
         </div>
     </div>
 </div>
@@ -343,11 +337,6 @@
 @endsection
 
 @section('script')
-  <!-- form repeater js -->
-
-  <script src="{{asset('dashboard')}}/assets/form-repeater/jquery.repeater/jquery.repeater.min.js"></script>
-  <script src="{{asset('dashboard')}}/assets/form-repeater/form-repeater.int.js"></script>
-  <script src="{{asset('dashboard')}}/assets/form-repeater/app.js"></script>
 
 @if (Session::has('message'))
 <script>

@@ -132,7 +132,7 @@
         </a>
      </div>
   <!-- Modal -->
-    <form action="{{ route('grades.destroy', $item) }}" method="POST">
+<form action="{{ route('grades.destroy', $item) }}" method="POST">
         @csrf
         @method('DELETE')
   <div class="modal fade" id="delete{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -159,7 +159,7 @@
     </div>
   </div>
     </form>
-                                            {{-- ens modal --}}
+                                            {{-- end modal --}}
                                         </div>
                                     </td>
                                 </tr>
